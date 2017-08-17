@@ -3,7 +3,7 @@
 Plugin Name: Pegion Log Viewer
 Plugin URI: https://github.com/MakotoHoshi/
 Description: Pegionメールライブラリに搭載されたDBモードに対応するログビューワです。
-Version: 1.0.0
+Version: 1.0.1
 Author: MakotoHoshi
 Author URI: https://github.com/MakotoHoshi/
 License: GPL2
@@ -31,7 +31,8 @@ function PLV_console(){
 		$string .= '<td>'.$value->time.'</td>';
 		foreach($value as $k=>$v){
 			if($k == "email" || $k == "user"){
-				$string .= '<td>'.$v.'</td>';
+				$v = unserialize($v);
+				$string .= '<td>'.$v[1].'</td>';
 			}
 		}
 		$string .= '</tr>';
@@ -41,12 +42,15 @@ function PLV_console(){
 		foreach($value as $k=>$v){
 			if($k == "_id" || $k == "time"){
 				continue;
-			}
-			if(strpos($v, "&lt;br&gt;") !== false){
-				$v = str_replace("&lt;br&gt;", "／", $v);
-				$string .= $v."<br>";
 			}else{
-				$string .= $v."<br>";
+				$v = unserialize($v);
+				$string .= '['.$v[0].']　';
+				if(strpos($v[1], "&lt;br&gt;") !== false){
+					$v[1] = str_replace("&lt;br&gt;", "／", $v[1]);
+					$string .= $v[1]."<br>";
+				}else{
+					$string .= $v[1]."<br>";
+				}
 			}
 		}
 		$string .= '</div>

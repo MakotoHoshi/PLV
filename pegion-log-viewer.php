@@ -42,7 +42,12 @@ function PLV_console(){
 			if($k == "_id" || $k == "time"){
 				continue;
 			}
-			$string .= $v."<br>";
+			if(strpos($v, "&lt;br&gt;") !== false){
+				$v = str_replace("&lt;br&gt;", "／", $v);
+				$string .= $v."<br>";
+			}else{
+				$string .= $v."<br>";
+			}
 		}
 		$string .= '</div>
 		</th>

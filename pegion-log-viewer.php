@@ -35,9 +35,9 @@ function PLV_console(){
 			}
 		}
 		$string .= '</tr>';
-		$string .= '<tr class="mail_txt">
+		$string .= '<tr class="mail_txt" style="display:none;">
 		<th colspan="4">
-		<div style="height: 100px; overflow-y: scroll;">';
+		<div>';
 		foreach($value as $k=>$v){
 			if($k == "_id" || $k == "time"){
 				continue;
@@ -57,3 +57,11 @@ function PLV_menu_output(){
 	add_menu_page("PLV", "PLV", "manage_options", "plv", "PLV_console", content_url()."/plugins/PLV/img/icon.png");
 }
 ?>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+	$(function(){
+		$('.mail_ov').on('click', function(){
+			$(this).next('.mail_txt').slideToggle();
+		});
+	});
+</script>
